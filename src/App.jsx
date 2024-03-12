@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Todo } from './components/Todo'
 import './App.css'
+import { TodoForm } from './components/TodoForm'
 
 function App() {
   const [todos, setTodo] = useState([
@@ -22,15 +23,28 @@ function App() {
       category: "Estudos",
       isCompleted: false,
     }
-  ]) 
+  ]);
+  
+  const addTodo =(text, category) => {
+
+    const newTodos = [...todos, {
+      id: Math.floor(Math.random() * 10000),
+      text,
+      category,
+      isCompleted: false,
+    },
+  ];
+    setTodo(newTodos);
+  }
   return (
   <div className="app">
     <h1>Lista de Tarefas</h1>
     <div className="todo-list">
       {todos.map((todo) => (
-        <Todo todo={todo}/>
+        <Todo key={todo.id} todo={ todo }/>
       ))}
     </div>
+    <TodoForm addTodo={addTodo}/>
   </div>
   )
 }
